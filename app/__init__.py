@@ -23,7 +23,6 @@ conn = psycopg2.connect(
 
 conn.set_session(autocommit=True)
 db = conn.cursor()
-sockets = SocketIO(os.getenv('SOCKET_AGENT_HOST'), os.getenv('SOCKET_AGENT_PORT'))
 
 def create_app():
     app = Flask(__name__)
