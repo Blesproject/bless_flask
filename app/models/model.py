@@ -12,6 +12,16 @@ def get_columns(table):
         column = str(e)
     return column
 
+def get_types(table):
+    column = None
+    try:
+        # db.execute("SHOW columns FROM "+table)
+        db.execute("SELECT data_type FROM information_schema.columns WHERE table_schema = 'public' AND table_name='"+table+"'")
+        column = [row[0] for row in db.fetchall()]
+    except (Exception, psycopg2.DatabaseError) as e:
+        column = str(e)
+    return column
+
 
 def get_all(table):
     column = get_columns(table)
