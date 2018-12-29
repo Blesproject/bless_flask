@@ -1,7 +1,6 @@
 import os
 from . import configs
 from flask import Flask
-# from werkzeug.contrib.cache import MemcachedCache
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_redis import FlaskRedis
