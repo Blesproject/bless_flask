@@ -1,7 +1,7 @@
 import os
 from . import configs
 from flask import Flask
-from werkzeug.contrib.cache import MemcachedCache
+# from werkzeug.contrib.cache import MemcachedCache
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_redis import FlaskRedis
@@ -9,7 +9,6 @@ import psycopg2
 
 redis_store = FlaskRedis()
 root_dir = os.path.dirname(os.path.abspath(__file__))
-cache = MemcachedCache(['{}:{}'.format(os.getenv('MEMCACHE_HOST'), os.getenv('MEMCACHE_PORT'))])
 jwt = JWTManager()
 
 conn = psycopg2.connect(
