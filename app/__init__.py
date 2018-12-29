@@ -5,7 +5,6 @@ from werkzeug.contrib.cache import MemcachedCache
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_redis import FlaskRedis
-from socketIO_client import SocketIO, BaseNamespace
 import psycopg2
 
 redis_store = FlaskRedis()
