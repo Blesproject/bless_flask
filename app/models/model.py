@@ -51,6 +51,10 @@ def get_by_id(table, field= None, value= None):
 
 
 def insert(table, data = None):
+    returning = ""
+    if os.getenv('DB_DRIVER') == 'cockroachdb' or os.getenv('DB_DRIVER') == 'postgresql':
+        returning = "RETURNING *"
+    
     value = ''
     column = ''
     for row in data:
@@ -59,7 +63,8 @@ def insert(table, data = None):
     column = "("+column[:-1]+")"
     value = "("+value[:-1]+")"
     try:
-        db.execute("INSERT INTO "+table+" "+column+" VALUES "+value+" RETURNING *")
+
+        db.execute("INSERT INTO "+table+" "+column+" VALUES "+value+" "+returning)
     except (Exception, psycopg2.DatabaseError) as e:
         raise e
     else:
