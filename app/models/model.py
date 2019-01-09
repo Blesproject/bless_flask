@@ -1,5 +1,5 @@
 from app import  db, psycopg2
-import json
+import json, os
 
 
 def get_columns(table):
