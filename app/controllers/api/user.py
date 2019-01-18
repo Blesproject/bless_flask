@@ -12,13 +12,13 @@ class UserdataResource(Resource):
         obj_userdata = list()
         
         try:
-            results = db.get_all("userdata")
+            results = db.get_all("tb_userdata")
         except Exception:
             return response(200, message="Users Data Not Found")
         else:
             for i in results :
                 data = {
-                    "userdata_id": str(i['userdata_id']),
+                    "id_userdata": str(i['id_userdata']),
                     "email" : i['email'],
                     "first_name" : i['first_name'],
                     "last_name" : i['last_name'],
@@ -33,17 +33,17 @@ class UserdataResource(Resource):
 
 class UserdataResourceById(Resource):
     @jwt_required
-    def get(self, userdata_id):
+    def get(self, id_userdata):
         obj_userdata = []
         results = db.get_by_id(
-                    table="userdata",
-                    field="userdata_id",
-                    value=userdata_id
+                    table="tb_userdata",
+                    field="id_userdata",
+                    value=id_userdata
                 )
 
         for i in results :
             data = {
-                "userdata_id": str(i['userdata_id']),
+                "id_userdata": str(i['id_userdata']),
                 "email" : i['email'],
                 "first_name" : i['first_name'],
                 "last_name" : i['last_name'],
@@ -77,7 +77,7 @@ class UserdataInsert(Resource):
             "province" : args['province']
         }
         try:
-            result = db.insert(table="userdata", data=data_insert)
+            result = db.insert(table="tb_userdata", data=data_insert)
         except Exception as e:
             message = {
                 "status": False,
@@ -95,12 +95,12 @@ class UserdataInsert(Resource):
 
 class UserdataRemove(Resource):
     @jwt_required
-    def delete(self, userdata_id):
+    def delete(self, id_userdata):
         try:
             db.delete(
-                    table="userdata", 
-                    field='userdata_id',
-                    value=userdata_id
+                    table="tb_userdata", 
+                    field='id_userdata',
+                    value=id_userdata
                 )
         except Exception as e:
             message = {
@@ -116,7 +116,7 @@ class UserdataRemove(Resource):
 
 class UserdataUpdate(Resource):
     @jwt_required
-    def put(self, userdata_id):
+    def put(self, id_userdata):
         parser = reqparse.RequestParser()
         parser.add_argument('email', type=str, required=True)
         parser.add_argument('first_name', type=str, required=True)
@@ -128,7 +128,7 @@ class UserdataUpdate(Resource):
 
         data = {
             "where":{
-                "userdata_id": userdata_id
+                "id_userdata": id_userdata
             },
             "data":{
                 "email" : args['email'],
@@ -142,7 +142,7 @@ class UserdataUpdate(Resource):
 
         
         try:
-            db.update("userdata", data=data)
+            db.update("tb_userdata", data=data)
         except Exception as e:
             message = {
                 "status": False,

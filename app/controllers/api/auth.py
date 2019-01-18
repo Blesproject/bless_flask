@@ -15,19 +15,19 @@ from passlib.hash import pbkdf2_sha256
 class UserloginInsert(Resource):
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('userdata_id', type=str, required=True)
+        parser.add_argument('id_userdata', type=str, required=True)
         parser.add_argument('username', type=str, required=True)
         parser.add_argument('password', type=str, required=True)
         args = parser.parse_args()
         password_hash = pbkdf2_sha256.hash(args['password'])
         data_insert = {
-            "userdata_id" : args['userdata_id'],
+            "id_userdata" : args['id_userdata'],
             "username" : args['username'],
             "password" : password_hash,
         }
 
         try:
-            db.insert(table="userlogin", data=data_insert)
+            db.insert(table="tb_user", data=data_insert)
         except Exception as e:
             message = {
                 "status": False,
@@ -35,7 +35,7 @@ class UserloginInsert(Resource):
             }
         else:
             data_insert = {
-                "userdata_id" : args['userdata_id'],
+                "id_userdata" : args['id_userdata'],
                 "username" : args['username'],
             }
             message = {
@@ -66,7 +66,7 @@ class Usersignin(Resource):
         password = args['password']
 
         user = db.get_by_id(
-                    table= "userlogin", 
+                    table= "tb_user", 
                     field="username",
                     value=username
                 )
