@@ -57,7 +57,7 @@ pluggy==0.6.0
 post==1.0.2
 psycopg2==2.7.6.1
 public==2.0.1
-py==1.5.3
+py==1.10.0
 pyasn1==0.4.2
 PyJWT==1.4.2
 pylint==2.1.1
